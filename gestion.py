@@ -1,16 +1,73 @@
 # --------Application de Gestion Restaurant avec python ---------------  
-name_list={} #names and usernames of all registered peoples
-login_data={} #list of all username with passwords
-list_plat={} #food items with its price
+from multiprocessing import connection
+import time
+# Mes dictionnaires  
+#Nom et prenom de tous les personnes inscrits
+list_nom={}
+# Dictionnaire de tous les noms d'utilisateurs avec leur mot de pass 
+dict_connection={}
+# Dictionnaire de plat ....
+list_plat={} # Les produits avec leur prix correspondant
 item_serial={} #food items with serial no.. like 1,2,3....
 bill={} #contains dish_name:quantity for order
-no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items 
+no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items  
 
 
 
-    
+# Ma fonction pour l'inscription de l'utilisateur .
+# Elle prend la valeur 1 s'il est appele par l'admin et 2 s'il est appele par le client
+def inscription(val) : 
+    print("----------------INSCRIPTION------------") 
+    nom = input("Saisir votre nom svp ") 
+    prenom = input("Saisir votre prenom svp") 
+    pwd = input("Saisir votre mot de pass")
+    for i in dict_connection.keys() : 
+        # si user existe deja 
+        if i == prenom : 
+            print('Ouppps cet utilisateur existe deja ') 
+            if val == 1 :
+                return connection(1) #return True par defaut .
+            else: 
+                return connection(2)  
 
-# fonction pour gerer l'admin 
+        # si user n'existe pas 
+        else : 
+            dict_connection[prenom] = pwd 
+            list_nom[prenom] = nom 
+            print("Vous vous etes inscrits avec succes ...\n Connecter vous pour Continuer") 
+            if val == 1 : 
+                return connection(1) # par defaut retourne True pcq forcement tout le monde est inscrit
+            else : 
+                return connection(2)
+
+# Ma fonction pour la connection 
+def connection(val) : 
+    print("----------------------------Connection-----------------------") 
+    prenom=input("Enter Votre prenom!!! :")
+    pwd=input("Enter votre mot de pass svp!!! :")
+    userexist=False # l'utilisateur par défaut n'existe pas avant de vérifier la condition
+    for i in dict_connection.keys():
+        if i==prenom :
+            userexist=True #si l'utilisateur existe alors ce serait vrai
+            if dict_connection[prenom]==pwd:
+                print("\nConnection reussie ")
+                print("Bienvenue",list_nom[prenom]," !\n")
+                return True
+            else:
+                print("\nIncorrect Prenom et mot de pass.... Reesaye encore svp")
+                if val==1:
+                    return connection(1) 
+                else:
+                    return connection(2)
+    if userexist==False: #this will be only execute when user with specified username doesn't exist 
+        print("\nUser non Trouve... Please inscris toi ou connect toi avec d'autre compte pour continuer")
+        if call==1:
+            return administration()
+        else:
+            return client()
+ 
+
+# fonction pour gerer l'administration ....
 def administration () : 
     choix_admin = ["1","2"] 
     ch = input("Faites votre choix") 
@@ -76,7 +133,7 @@ def client() :
 def  add_plat() : 
     nom = input("Entrer le nom du plat") 
     prix = int(input("Entrez le prix du plat svp")) 
-    liste_plat[name] = prix 
+    liste_plat[nom] = prix 
     print("plat ajouter avec succes")
 
 # Supprimer un plat dans mon dictionnaire list_plat
@@ -129,7 +186,7 @@ def commande() :
     print("\nNourriture commandée avec succès !!!!\n\n")  
 
     # cette fonction permet de generer de la facture apres la commande .
-    return generate_bill()
+    return genere_facture()
 
 # Animation de ma facture en utilisant le module time et la fonction sleep .
 def animation_facture():
