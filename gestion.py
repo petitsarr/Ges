@@ -1,20 +1,13 @@
-# --------Application de Gestion Restaurant avec python --------------- 
-choix_principale = ["1","2","3"] 
-menu_admin = """-----------------WELCOME----------!!!!! : 
-1--: Admin panel...
+# --------Application de Gestion Restaurant avec python ---------------  
+name_list={} #names and usernames of all registered peoples
+login_data={} #list of all username with passwords
+list_plat={} #food items with its price
+item_serial={} #food items with serial no.. like 1,2,3....
+bill={} #contains dish_name:quantity for order
+no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items 
 
-2--: Client Panel...
 
-3--: Exit...
 
-? Votre choix : """ 
-
-choice=int(input("Enter your choice :")) 
-if choice in choix_principale :
-    if choice == "1" :
-        admin() 
-    elif choice == "2" :
-        client() 
     
 
 # fonction pour gerer l'admin 
@@ -138,7 +131,7 @@ def commande() :
     # cette fonction permet de generer de la facture apres la commande .
     return generate_bill()
 
-# Animation de ma facture en utlisant module time et la fonction sleep .
+# Animation de ma facture en utilisant le module time et la fonction sleep .
 def animation_facture():
     for i in range(4):
         print("\rGénération de votre FACTURE...   ",end="");
@@ -155,6 +148,28 @@ def animation_facture():
 
 
 
+def genere_facture() : 
+    animation_facture() 
+    print("***************** Ma Facture *****************") 
+
+    numero=1 
+
+    # t_bill  est Le montant total des commandes 
+    t_bill=0
+    for i in bill.keys():
+        #Calcul du Montant total d'un commande ==> quantity * prix 
+        one_tbill=bill[i]*list_plat[i] 
+    
+        print(numero,".",i,"\t",bill[i],"x",list_plat[i]," = ",one_tbill)
+        t_bill+=one_tbill
+        numero = numero + 1 
+    print("--------------------------------------------------")
+    print(" TOTAL BILL    =      ",t_bill)
+    
+    message_merci ()
+  
+    return True 
+
 
 def message_merci () :
      print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\
@@ -162,7 +177,26 @@ def message_merci () :
                     A la Prochaine !                                        \
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
    
+def main() : 
+    
+  choix_principale = ["1","2","3"] 
+  menu_admin = """-----------------WELCOME----------!!!!! : 
+     1--: Admin panel...
 
+    2--: Client Panel...
+
+    3--: Exit...
+
+   ? Votre choix : """ 
+
+  choice=int(input("Enter your choice :")) 
+  if choice in choix_principale :
+    if choice == "1" :
+        administration ()
+    elif choice == "2" :
+        client() 
+    else :
+        return 0
 
 
 
