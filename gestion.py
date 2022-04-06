@@ -138,8 +138,8 @@ def commande() :
     # cette fonction permet de generer de la facture apres la commande .
     return generate_bill()
 
-
-def animate_bill():
+# Animation de ma facture en utlisant module time et la fonction sleep .
+def animation_facture():
     for i in range(4):
         print("\rGénération de votre FACTURE...   ",end="");
         time.sleep(0.5)
