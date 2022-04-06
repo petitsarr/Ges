@@ -100,6 +100,7 @@ def delete_plat() :
             else:
                 print("\n le nom du plat est incorect")
                 break
+
 # MA Fonction pour afficher le menu 
 def  afficher_menu_plat() : 
     print("---------------------------Menu Restaurant-------------------------")
@@ -109,7 +110,22 @@ def  afficher_menu_plat() :
         Numero=1 
         for i in list_plat.keys():
             print( Numero,".",i,"\t= ",list_plat[i])
-            Numero = Numero + 1
+            Numero = Numero + 1  
+
+
+#La fonction pour gerer la commande : 
+def commande() :
+    afficher_menu_plat() 
+    print("******************* Commandez de la nourriture du menu ci-dessus SVP****************") 
+    if (len(list_plat)) == 0 : 
+        print("Ohhhh je suis desole ya rien en commander !!!!")
+    else : 
+        cmd = True
+    #Tant que il ya de la nourriture pour la commande alors :
+    while cmd == True : 
+        print("testt")
+
+     
 
 
               
