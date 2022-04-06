@@ -123,12 +123,44 @@ def commande() :
         cmd = True
     #Tant que il ya de la nourriture pour la commande alors :
     while cmd == True : 
-        print("testt")
+         numero_plat=int(input("Entrer le numero de plat svp :-"))
+         quantity=int(input("Entrer la quantite svp  :-")) 
+         bill[item_serial[numero_plat]]=quantity  
+         #ON demande a luser sil commander encore ou non .
+         cont=input("Voulez vous ajoute plus ou non svp!!!?(y/n): ") 
+         # si oui j'affecte True a cmd pour parcourir encore la boucle 
+         if cont=='Y' or cont=='y':
+            cmd=True
+         else:
+            cmd=False 
+    print("\nNourriture commandée avec succès !!!!\n\n")  
 
-     
+    # cette fonction permet de generer de la facture apres la commande .
+    return generate_bill()
 
 
-              
+def animate_bill():
+    for i in range(4):
+        print("\rGénération de votre FACTURE...   ",end="");
+        time.sleep(0.5)
+        print("\rGénération de votre FACTURE...   ",end="");
+        time.sleep(0.5)
+        print("\rGénération de votre FACTURE..  ",end="");
+        time.sleep(0.5)
+        print("\rGénération de votre FACTURE... ",end="");
+        time.sleep(0.5)
+        print("\rGénération de votre FACTURE....",end="");
+        time.sleep(0.5)
+    print("\n\tGénération de votre FACTURE")
+
+
+
+
+def message_merci () :
+     print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\
+                    Merci Beaucoup Bye Bye Bye ......                                         \n\
+                    A la Prochaine !                                        \
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
    
 
 
