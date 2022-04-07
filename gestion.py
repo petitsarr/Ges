@@ -7,7 +7,10 @@ import time
 #Nom et prenom de tous les personnes inscrits
 list_nom={}
 # Dictionnaire de tous les noms d'utilisateurs avec leur mot de pass 
-dict_connection={}
+dict_connection={
+    "moussa":"passer1" ,
+    "serifou" : "passer2"
+}
 # Dictionnaire de plat .... 
 # Les plats avec leur prix correspondant
 list_plat={} 
@@ -22,6 +25,7 @@ no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items
 # Ma fonction pour l'inscription de l'utilisateur .
 # Elle prend la valeur 1 s'il est appele par l'admin et 2 s'il est appele par le client cad l'user 
 def inscription(val) : 
+   # print(type(val))
     print("----------------INSCRIPTION------------") 
     nom = input("Saisir votre nom svp : \n ") 
     prenom = input("Saisir votre prenom svp :\n") 
@@ -38,7 +42,8 @@ def inscription(val) :
         # si user n'existe pas 
         else : 
             dict_connection[prenom] = pwd 
-            list_nom[prenom] = nom 
+            list_nom[prenom] = nom  
+            
             print("Vous vous etes inscrits avec succes ...\n Connecter vous pour Continuer") 
             if val == 1 : 
                 return connections(1) # par defaut retourne True pcq forcement tout le monde est inscrit
@@ -148,6 +153,9 @@ def  add_plat() :
     nom = input("Entrer le nom du plat:\n") 
     prix = int(input("Entrez le prix du plat svp :\n")) 
     list_plat[nom] = prix 
+    global no_of_dish 
+    item_serial[no_of_dish]=nom # serial number(key):dish_name(value)
+    no_of_dish+=1
     print("plat ajouter avec succes")
 
 # Supprimer un plat dans mon dictionnaire list_plat
@@ -182,14 +190,19 @@ def commande() :
     afficher_menu_plat() 
     print("******************* Commandez de la nourriture du menu ci-dessus SVP****************") 
     if (len(list_plat)) == 0 : 
-        print("Ohhhh je suis desole ya rien en commander !!!!")
+        print("Ohhhh je suis desole ya rien en commander !!!!") 
+        cmd = False 
     else : 
         cmd = True
     #Tant que il ya de la nourriture pour la commande alors :
     while cmd == True : 
-         numero_plat=int(input("Entrer le numero de plat svp :\n-"))
-         quantity=int(input("Entrer la quantite svp  :\n-")) 
+         numero_plat=int(input("Entrer le numero de plat svp:\t"))
+         quantity=int(input("Entrer la quantite svp:\t")) 
+        
          bill[item_serial[numero_plat]]=quantity  
+         print("Mon bill est \n :",bill) 
+        #bill[numero_plat]=quantity 
+
          #On demande a l'user sil commander encore ou non  .
          cont=input("Voulez vous ajoute plus ou non svp!!!?(y/n): ") 
          # si oui j'affecte True a cmd pour parcourir encore la boucle 
