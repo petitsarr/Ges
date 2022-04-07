@@ -23,9 +23,9 @@ no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items
 # Elle prend la valeur 1 s'il est appele par l'admin et 2 s'il est appele par le client cad l'user 
 def inscription(val) : 
     print("----------------INSCRIPTION------------") 
-    nom = input("Saisir votre nom svp ") 
-    prenom = input("Saisir votre prenom svp") 
-    pwd = input("Saisir votre mot de pass")
+    nom = input("Saisir votre nom svp : \n ") 
+    prenom = input("Saisir votre prenom svp :\n") 
+    pwd = input("Saisir votre mot de pass :\n")
     for i in dict_connection.keys() : 
         # si user existe deja 
         if i == prenom : 
@@ -48,8 +48,8 @@ def inscription(val) :
 # Ma Fonction pour la Connection 
 def connections(val) : 
     print("-------------------------------Connection--------------------------------") 
-    prenom=input("Enter Votre prenom!!!!:")
-    pwd=input("Enter votre mot de pass svp!!!!:")
+    prenom=input("Enter Votre prenom!!!!:\n")
+    pwd=input("Enter votre mot de pass svp!!!!:\n")
     userexist=False # l'utilisateur par défaut n'existe pas avant de vérifier la condition
     for i in dict_connection.keys():
         if i==prenom :
@@ -75,7 +75,14 @@ def connections(val) :
 # fonction pour gerer l'administration ....
 def administration () : 
     choix_admin = ["1","2"] 
-    ch = input("Faites votre choix") 
+    ch = input(""""--------------------------Connection-Inscription--------------------------------!!!!! : 
+     1--: Connection.......
+
+    2--: Inscription.......
+
+  
+
+   ? Votre choix svp : """ ) 
     if ch in choix_admin : 
         if ch =="1" :
             valeur = connections(1)
@@ -88,13 +95,13 @@ def administration () :
         print("1.Modifie le Menu\n")
         print("2.Afficher le Menu\n")
         print("3.Deconnection\n") 
-        ch2 = input("Entrez votre choix ") 
+        ch2 = input("Entrez votre choix :\n") 
         if ch2 in c :
             if ch2 == "1"  :  
                 print("1.Ajouter un plat dans le menu")
                 print("2.supprimer un plat dans le menu ")
                 print("3.Go Back") 
-                p = int(input("Entrer votre choix svp ")) 
+                p = int(input("Entrer votre choix svp:\n")) 
                 if p == 1 : 
                     add_plat() 
                 elif p == 2 :
@@ -112,7 +119,7 @@ def client() :
     cli = ["1","2"]  
     print("1.Connection")
     print("2.Inscription") 
-    c = input("Entrer votre choix svp !!!") 
+    c = input("Entrer votre choix svp !!!:\n") 
     if c in cli :
         if c == "1" :
             valeur = connections(2)
@@ -123,7 +130,7 @@ def client() :
         print("1.Afficher Menu")
         print("2.Commander")
         print("3.deconnexion")
-        choice=int(input("Entrer votre choix :")) 
+        choice=int(input("Entrer votre choix :\n")) 
         # choix de 1 pour voir le menu ...
         if choice==1:
              afficher_menu_plat() 
@@ -138,8 +145,8 @@ def client() :
 
 # Ajouter un plat a mon dictionnnaire liste_plat
 def  add_plat() : 
-    nom = input("Entrer le nom du plat") 
-    prix = int(input("Entrez le prix du plat svp")) 
+    nom = input("Entrer le nom du plat:\n") 
+    prix = int(input("Entrez le prix du plat svp :\n")) 
     list_plat[nom] = prix 
     print("plat ajouter avec succes")
 
@@ -149,7 +156,7 @@ def delete_plat() :
     if len(list_plat)==0:
         print("Rien en supprime")
     else:
-        nom=input("Entrer le nom du plat a supprimer :")
+        nom=input("Entrer le nom du plat a supprimer :\n")
         for i in range(len(list_plat)):
             if nom in list_plat.keys():
                 del(list_plat[nom])
@@ -180,8 +187,8 @@ def commande() :
         cmd = True
     #Tant que il ya de la nourriture pour la commande alors :
     while cmd == True : 
-         numero_plat=int(input("Entrer le numero de plat svp :-"))
-         quantity=int(input("Entrer la quantite svp  :-")) 
+         numero_plat=int(input("Entrer le numero de plat svp :\n-"))
+         quantity=int(input("Entrer la quantite svp  :\n-")) 
          bill[item_serial[numero_plat]]=quantity  
          #On demande a l'user sil commander encore ou non  .
          cont=input("Voulez vous ajoute plus ou non svp!!!?(y/n): ") 
@@ -228,7 +235,7 @@ def genere_facture() :
         montant_total_commande+=montant_une_seule_commande
         numero = numero + 1 
     print("--------------------------------------------------")
-    print(" TOTAL BILL    =      ",montant_total_commande)
+    print(" TOTAL FACTURE    =      ",montant_total_commande)
     
     message_merci ()
   
