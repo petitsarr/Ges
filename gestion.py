@@ -1,22 +1,26 @@
-# --------Application de Gestion Restaurant avec python ---------------   
+# --------Application de Gestion Restaurant avec python from Scratch ---------------  
+ 
 
-from multiprocessing import connection
+
 import time
 # Mes dictionnaires  
 #Nom et prenom de tous les personnes inscrits
 list_nom={}
 # Dictionnaire de tous les noms d'utilisateurs avec leur mot de pass 
 dict_connection={}
-# Dictionnaire de plat ....
-list_plat={} # Les produits avec leur prix correspondant
-item_serial={} #food items with serial no.. like 1,2,3....
-bill={} #contains dish_name:quantity for order
+# Dictionnaire de plat .... 
+# Les plats avec leur prix correspondant
+list_plat={} 
+# Le numero de serie de l'article 
+item_serial={} 
+# Dictionnaire bill {} contient le nom du plat : et quantité pour la commande
+bill={} 
 no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items  
 
 
 
 # Ma fonction pour l'inscription de l'utilisateur .
-# Elle prend la valeur 1 s'il est appele par l'admin et 2 s'il est appele par le client
+# Elle prend la valeur 1 s'il est appele par l'admin et 2 s'il est appele par le client cad l'user 
 def inscription(val) : 
     print("----------------INSCRIPTION------------") 
     nom = input("Saisir votre nom svp ") 
@@ -27,7 +31,7 @@ def inscription(val) :
         if i == prenom : 
             print('Ouppps cet utilisateur existe deja ') 
             if val == 1 :
-                return connections(1) #return True par defaut .
+                return connections(1) #On return True par defaut .
             else: 
                 return connections(2)  
 
@@ -41,11 +45,11 @@ def inscription(val) :
             else : 
                 return connections(2)
 
-# Ma fonction pour la connection 
+# Ma Fonction pour la Connection 
 def connections(val) : 
-    print("----------------------------Connection-----------------------") 
-    prenom=input("Enter Votre prenom!!! :")
-    pwd=input("Enter votre mot de pass svp!!! :")
+    print("-------------------------------Connection--------------------------------") 
+    prenom=input("Enter Votre prenom!!!!:")
+    pwd=input("Enter votre mot de pass svp!!!!:")
     userexist=False # l'utilisateur par défaut n'existe pas avant de vérifier la condition
     for i in dict_connection.keys():
         if i==prenom :
@@ -60,7 +64,7 @@ def connections(val) :
                     return connections(1) 
                 else:
                     return connections(2)
-    if userexist==False: #this will be only execute when user with specified username doesn't exist 
+    if userexist==False: 
         print("\nUser non Trouve... Please inscris toi ou connect toi avec d'autre compte pour continuer")
         if val ==1:
             return administration()
@@ -103,31 +107,33 @@ def administration () :
                 valeur = False  
                 print("Deconnection reussi") 
                 main()
-
+# La fonction qui gere le client cad l'user ...
 def client() :
     cli = ["1","2"]  
-    print("1.connection")
+    print("1.Connection")
     print("2.Inscription") 
-    c = input("Entrer votre choix") 
+    c = input("Entrer votre choix svp !!!") 
     if c in cli :
         if c == "1" :
             valeur = connections(2)
         else :
             valeur = inscription(2) 
     while valeur == True :
-        print("------------------------------------------------------------")
+        print("---------------------------Bienvenue en Tant que Client---------------------------------")
         print("1.Afficher Menu")
         print("2.Commander")
         print("3.deconnexion")
-        choice=int(input("Enter your choice :"))
+        choice=int(input("Entrer votre choix :")) 
+        # choix de 1 pour voir le menu ...
         if choice==1:
              afficher_menu_plat() 
+        # choix 2 pour faire la commande ...
         elif choice==2:
             val=commande()
         else:
-            val=False #session time out.... Termination of while loop
+            val=False 
             print("Deconnection reussi avec succes")
-            main() #after logout another can login so main() is called here 
+            main() 
 
 
 # Ajouter un plat a mon dictionnnaire liste_plat
@@ -152,8 +158,8 @@ def delete_plat() :
                 print("\n le nom du plat est incorect")
                 break
 
-# MA Fonction pour afficher le menu 
-def  afficher_menu_plat() : 
+# Ma Fonction pour afficher le menu du Restaurant ....
+def afficher_menu_plat() : 
     print("---------------------------Menu Restaurant-------------------------")
     if(len(list_plat))==0:
         print("Rien en afficher dans le menu actuellement")
@@ -177,7 +183,7 @@ def commande() :
          numero_plat=int(input("Entrer le numero de plat svp :-"))
          quantity=int(input("Entrer la quantite svp  :-")) 
          bill[item_serial[numero_plat]]=quantity  
-         #ON demande a luser sil commander encore ou non .
+         #On demande a l'user sil commander encore ou non  .
          cont=input("Voulez vous ajoute plus ou non svp!!!?(y/n): ") 
          # si oui j'affecte True a cmd pour parcourir encore la boucle 
          if cont=='Y' or cont=='y':
@@ -208,21 +214,21 @@ def animation_facture():
 
 def genere_facture() : 
     animation_facture() 
-    print("***************** Ma Facture *****************") 
+    print("*****************Hello Votre Facture est la *****************") 
 
     numero=1 
 
-    # t_bill  est Le montant total des commandes 
-    t_bill=0
+    # montant_total_commande : est Le montant total des commandes 
+    montant_total_commande=0
     for i in bill.keys():
         #Calcul du Montant total d'un commande ==> quantity * prix 
-        one_tbill=bill[i]*list_plat[i] 
+        montant_une_seule_commande=bill[i]*list_plat[i] 
     
-        print(numero,".",i,"\t",bill[i],"x",list_plat[i]," = ",one_tbill)
-        t_bill+=one_tbill
+        print(numero,".",i,"\t",bill[i],"x",list_plat[i]," = ",montant_une_seule_commande)
+        montant_total_commande+=montant_une_seule_commande
         numero = numero + 1 
     print("--------------------------------------------------")
-    print(" TOTAL BILL    =      ",t_bill)
+    print(" TOTAL BILL    =      ",montant_total_commande)
     
     message_merci ()
   
@@ -238,24 +244,25 @@ def message_merci () :
 def main() : 
     
   choix_principale = ["1","2","3"] 
-  menu_admin = """-----------------WELCOME----------!!!!! : 
-     1--: Admin panel...
+  menu_admin = """-----------------------------------WELCOME--------------------------------!!!!! : 
+     1--: Panel Administration.......
 
-    2--: Client Panel...
+    2--: Panel Client.......
 
-    3--: Exit...
+    3--: Quitter.......
 
-   ? Votre choix : """ 
+   ? Votre choix svp : """ 
 
-  choice=int(input("Enter your choice :")) 
+  choice= input(menu_admin)
   if choice in choix_principale :
     if choice == "1" :
         administration()
     elif choice == "2" :
         client() 
     else :
-        return 0
+        return 0 
 main()
+
 
 
 
