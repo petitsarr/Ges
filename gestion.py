@@ -15,10 +15,10 @@ dict_connection={
 # Les plats avec leur prix correspondant
 list_plat={} 
 # Le numero de serie de l'article 
-item_serial={} 
+item_serial = {} 
 # Dictionnaire bill {} contient le nom du plat : et quantité pour la commande
 bill={} 
-no_of_dish=1 #it is used to print 1,2,3... serial no. in front of items  
+numero_plat=1 #it is used to print 1,2,3... serial no. in front of items  
 
 
 
@@ -153,9 +153,9 @@ def  add_plat() :
     nom = input("Entrer le nom du plat:\n") 
     prix = int(input("Entrez le prix du plat svp :\n")) 
     list_plat[nom] = prix 
-    global no_of_dish 
-    item_serial[no_of_dish]=nom # serial number(key):dish_name(value)
-    no_of_dish+=1
+    global numero_plat 
+    item_serial[numero_plat]=nom # serial number(key):dish_name(value)
+    numero_plat+=1
     print("plat ajouter avec succes")
 
 # Supprimer un plat dans mon dictionnaire list_plat
